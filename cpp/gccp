@@ -1,0 +1,6 @@
+#/bin/sh
+set -e
+set -x
+
+g++ -ansi -pedantic-errors -std=c++11 -Wall $1 $2 $3
+./a.out
