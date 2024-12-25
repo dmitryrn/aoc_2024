@@ -53,9 +53,9 @@
 (deftest test-main
   (testing "main"
     (let [parsed (parse "2333133121414131402")
-          expanded (expand parsed)
-          compacted (compact expanded)
-          checksum (checksum compacted)]
+            expanded (expand parsed)
+            compacted (compact expanded)
+            checksum (checksum compacted)]
       (println "Parsed:" parsed)
       (println "Expanded:" expanded)
       (println "Compacted:" compacted)
