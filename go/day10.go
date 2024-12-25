@@ -41,12 +41,8 @@ func travel(m [][]byte, x, y int, score *int, rating *int, visited9 map[[2]int]s
 
 		next := m[nextY][nextX]
 		if next == current+1 {
-			// println(nextX, nextY)
-			// debugMatrix(m, nextX, nextY)
-			// println()
 			if next == '9' {
 				*rating++
-				// println("inc")
 				if _, ok := visited9[[2]int{nextX, nextY}]; !ok {
 					*score++
 					visited9[[2]int{nextX, nextY}] = struct{}{}
