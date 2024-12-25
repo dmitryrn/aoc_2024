@@ -5,26 +5,30 @@ import (
 	"strings"
 )
 
-func day10(raw string) int {
+func day10(raw string) (int, int) {
 	m := parseMatrix(raw)
 
 	globalScore := 0
+	globalRating := 0
 	for y := range m {
 		for x := range m[y] {
 			if m[y][x] == '0' {
 				score := 0
-        visited9 := make(map[[2]int]struct{})
-				travel(m, x, y, &score, visited9)
+				rating := 0
+				visited9 := make(map[[2]int]struct{})
+				travel(m, x, y, &score, &rating, visited9)
 				fmt.Printf("Score for '0' at (%d, %d): %d\n", x, y, score)
+				fmt.Printf("Raring for '0' at (%d, %d): %d\n", x, y, rating)
 				globalScore += score
+				globalRating += rating
 			}
 		}
 	}
 
-	return globalScore
+	return globalScore, globalRating
 }
 
-func travel(m [][]byte, x, y int, score *int, visited9 map[[2]int]struct{}) {
+func travel(m [][]byte, x, y int, score *int, rating *int, visited9 map[[2]int]struct{}) {
 	current := m[y][x]
 
 	for _, pair := range [][]int{{x - 1, y}, {x + 1, y}, {x, y + 1}, {x, y - 1}} {
@@ -37,17 +41,18 @@ func travel(m [][]byte, x, y int, score *int, visited9 map[[2]int]struct{}) {
 
 		next := m[nextY][nextX]
 		if next == current+1 {
-      // println(nextX, nextY)
-      // debugMatrix(m, nextX, nextY)
-      // println()
+			// println(nextX, nextY)
+			// debugMatrix(m, nextX, nextY)
+			// println()
 			if next == '9' {
-        // println("inc")
-        if _, ok := visited9[[2]int{nextX, nextY}]; !ok {
-          *score++
-          visited9[[2]int{nextX, nextY}] = struct{}{}
-        }
+				*rating++
+				// println("inc")
+				if _, ok := visited9[[2]int{nextX, nextY}]; !ok {
+					*score++
+					visited9[[2]int{nextX, nextY}] = struct{}{}
+				}
 			}
-			travel(m, nextX, nextY, score, visited9)
+			travel(m, nextX, nextY, score, rating, visited9)
 		}
 	}
 }
