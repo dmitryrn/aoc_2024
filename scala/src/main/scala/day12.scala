@@ -11,7 +11,7 @@ def soln(str: String): Int = {
   } yield (x, y)
 
   val sum = coordinates
-    .map{(coords) => 
+    .flatMap{(coords) => // flatmap filters out Nones and unwraps Somes
       val (x, y) = coords
       val char = m(y)(x)
       travel(m = m, visited = visited, coord = (x, y), char = char) match {
@@ -19,8 +19,6 @@ def soln(str: String): Int = {
         case Some(perimeter, area) => Some(perimeter * area)
       }
     }
-    .filter(_.isDefined)
-    .map(_.get)
     .sum
 
   sum
