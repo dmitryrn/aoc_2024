@@ -24,8 +24,8 @@ def soln(str: String): Int = {
   sum
 }
 
-def safeGet[T](vec: Vector[T], i: Int): Option[T] = {
-  if (i >= 0 && i < vec.length) Some(vec(i))
+def safeGet[T](vec: Vector[Vector[T]], y: Int, x: Int): Option[T] = {
+  if (y >= 0 && y < vec.length && x >= 0 && x < vec(y).length) Some(vec(y)(x))
   else None
 }
 
@@ -46,7 +46,7 @@ def travel(
     var toVisit = List[(Int, Int)]()
     val (x, y) = coord
     for ((x, y) <- Vector((x,y-1), (x,y+1), (x-1,y), (x+1, y))) {
-      val item = safeGet(m, y).flatMap(safeGet(_, x))
+      val item = safeGet(m, y, x)
 
       item match 
         case None => perimeter += 1
